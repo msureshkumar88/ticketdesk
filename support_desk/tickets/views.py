@@ -8,26 +8,31 @@ from django.conf import settings
 
 # Create your views here.
 def index(request):
-    url = f"{settings.END_POINT}tickets.json?per_page={settings.PER_PAGE}&page={get_current_page(request)}"
+    current_page = get_current_page(request)
+    url = f"{settings.END_POINT}tickets.json?per_page={settings.PER_PAGE}&page={current_page}"
 
     res = requests.get(url, auth=HTTPBasicAuth(settings.AUTH_USER, settings.AUTH_PASS))
     data = res.json()
     if not validate_response_status(res):
         return render(request, '505.html', status=500)
+    pages = calculate_pagination(request, data['count'], settings.PER_PAGE)
+    if current_page > pages['page_max']:
+        return render(request, '404.html', {'message': 'Page you are looking for not exist'}, status=500)
     return render(request, 'index.html',
                   {'data': data,
-                   'pagination': calculate_pagination(request, data['count'], 25),
+                   'pagination': pages,
                    'current_page': get_current_page(request),
                    'status': validate_response_status(res)
                    })
 
 
-def list(request, id: int):
-    url = f"{settings.END_POINT}tickets/{id}.json"
+def list(request, ticket_id: int):
+    url = f"{settings.END_POINT}tickets/{ticket_id}.json"
     res = requests.get(url, auth=HTTPBasicAuth(settings.AUTH_USER, settings.AUTH_PASS))
     data = res.json()
     if res.status_code == 404:
-        return render(request, '404.html', status=404)
+        return render(request, '404.html', {'message': 'The support ticket you are looking for does not exist.'},
+                      status=404)
     if not validate_response_status(res):
         return render(request, '505.html', status=500)
     return render(request, 'view.html', {"ticket": data['ticket']})
