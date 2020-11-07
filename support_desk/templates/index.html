@@ -1,6 +1,7 @@
 {% extends 'base.html'%}
 {%block mainblock%}
 <h1 class="mt-5">Ticket Desk</h1>
+{% if data.tickets%}
 <table class="table">
     <thead class="thead-dark">
     <tr>
@@ -53,4 +54,9 @@
         {% endif %}
     </ul>
 </nav>
+{% else %}
+<div class="alert alert-warning">
+    There no support tickets posted at the moment.
+</div>
+{% endif %}
 {%endblock%}
