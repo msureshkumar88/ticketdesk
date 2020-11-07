@@ -20,7 +20,7 @@ class TicketTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_api_not_connected(self):
-        """Connection with Zendesk not success 500 status should return"""
+        """If the connection with Zendesk not success 500 status should return"""
         settings.AUTH_USER = "test"
         settings.AUTH_PASS = "test"
         response = self.client.get('http://127.0.0.1:8000/')
