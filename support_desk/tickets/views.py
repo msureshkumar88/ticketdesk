@@ -17,6 +17,13 @@ def index(request):
                       calculate_pagination(request, data['count'], 25), 'current_page': get_current_page(request)})
 
 
+def list(request, id: int):
+    url = f"{settings.END_POINT}tickets/{id}.json"
+    res = requests.get(url, auth=HTTPBasicAuth(settings.AUTH_USER, settings.AUTH_PASS))
+    data = res.json()
+    return render(request, 'view.html', {"ticket": data['ticket']})
+
+
 def calculate_pagination(request, total_pages, per_page):
     page_count = math.ceil(total_pages / per_page)
     return {

@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{%block mainblock%}
+<h2>{{ticket.subject}}</h2>
+<div class="row">
+    <div class="col-md-6"><strong>Id</strong></div>
+    <div class="col-md-6">{{ticket.id}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6"><strong>Description</strong></div>
+    <div class="col-md-6">{{ticket.description}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6"><strong>Type</strong></div>
+    <div class="col-md-6">{{ticket.type}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6"><strong>Status</strong></div>
+    <div class="col-md-6">{{ticket.status}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6"><strong>Priority</strong></div>
+    <div class="col-md-6">{{ticket.priority}}</div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6"><strong>Date Created</strong></div>
+    <div class="col-md-6">{{ticket.created_at}}</div>
+</div>
+{%endblock%}

@@ -10,6 +10,7 @@
         <th scope="col">Type</th>
         <th scope="col">Priority</th>
         <th scope="col">Created Date</th>
+        <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
         <td>{{ticket.type}}</td>
         <td>{{ticket.priority}}</td>
         <td>{{ticket.created_at}}</td>
+        <td><a href="/view/{{ticket.id}}" class="btn btn-info">More</a></td>
     </tr>
 
     {% endfor %}
