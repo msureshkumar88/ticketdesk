@@ -12,15 +12,22 @@ def index(request):
 
     res = requests.get(url, auth=HTTPBasicAuth(settings.AUTH_USER, settings.AUTH_PASS))
     data = res.json()
+    if not validate_response_status(res):
+        return render(request, '505.html', status=500)
     return render(request, 'index.html',
-                  {'data': data, 'pagination':
-                      calculate_pagination(request, data['count'], 25), 'current_page': get_current_page(request)})
+                  {'data': data,
+                   'pagination': calculate_pagination(request, data['count'], 25),
+                   'current_page': get_current_page(request),
+                   'status': validate_response_status(res)
+                   })
 
 
 def list(request, id: int):
     url = f"{settings.END_POINT}tickets/{id}.json"
     res = requests.get(url, auth=HTTPBasicAuth(settings.AUTH_USER, settings.AUTH_PASS))
     data = res.json()
+    if not validate_response_status(res):
+        return render(request, '505.html', status=500)
     return render(request, 'view.html', {"ticket": data['ticket']})
 
 
@@ -40,3 +47,7 @@ def get_current_page(request):
     if page is None or not page.isnumeric():
         return 1
     return int(page)
+
+
+def validate_response_status(res):
+    return int(res.status_code) == 200
