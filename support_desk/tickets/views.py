@@ -26,6 +26,8 @@ def list(request, id: int):
     url = f"{settings.END_POINT}tickets/{id}.json"
     res = requests.get(url, auth=HTTPBasicAuth(settings.AUTH_USER, settings.AUTH_PASS))
     data = res.json()
+    if res.status_code == 404:
+        return render(request, '404.html', status=404)
     if not validate_response_status(res):
         return render(request, '505.html', status=500)
     return render(request, 'view.html', {"ticket": data['ticket']})
