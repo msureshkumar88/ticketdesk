@@ -125,3 +125,5 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+END_POINT = 'https://sureshkumar2020.zendesk.com/api/v2/'
