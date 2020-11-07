@@ -127,3 +127,6 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 END_POINT = 'https://sureshkumar2020.zendesk.com/api/v2/'
+AUTH_USER = 'suresh12_dmm@yahoo.com'
+AUTH_PASS = '2020Now1'
+PER_PAGE = 25
