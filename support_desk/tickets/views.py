@@ -21,7 +21,7 @@ def index(request):
         return render(request, '505.html', status=500)
     pages = calculate_pagination(request, data['count'], settings.PER_PAGE)
     if current_page > pages['page_max']:
-        return render(request, '404.html', {'message': 'Page you are looking for not exist'}, status=500)
+        return render(request, '404.html', {'message': 'Page you are looking for not exist'}, status=404)
     return render(request, 'index.html',
                   {'data': data,
                    'pagination': pages,
