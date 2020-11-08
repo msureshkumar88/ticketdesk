@@ -33,6 +33,13 @@ cd support_desk run following command in the terminal
 ```sh
 ./manage.py test tickets/
 ```
+- Settings can be changed in /support_desk/support_desk/settings.py
+```
+END_POINT = '' # Zendesk api endpoint
+AUTH_USER = '' # Zendesk account email
+AUTH_PASS = '' # Zendesk account password
+PER_PAGE = 25  # Records per page
+```
 Note: The tha above command should be executed in the pipenv shell that is created when running pipenv shell
 
 
