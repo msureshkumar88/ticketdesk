@@ -4,11 +4,15 @@ import requests
 from requests.auth import HTTPBasicAuth
 import math
 from django.conf import settings
+from django.shortcuts import redirect
 
 
 # Create your views here.
 def index(request):
     current_page = get_current_page(request)
+    if current_page < 1:
+        return redirect('/')
+
     url = f"{settings.END_POINT}tickets.json?per_page={settings.PER_PAGE}&page={current_page}"
 
     res = requests.get(url, auth=HTTPBasicAuth(settings.AUTH_USER, settings.AUTH_PASS))
@@ -45,7 +49,8 @@ def calculate_pagination(request, total_pages, per_page):
         "page_max": int(page_count),
         "page_range": range(1, page_count + 1),
         "previous_page": get_current_page(request) - 1,
-        "next_page": get_current_page(request) + 1
+        "next_page": get_current_page(request) + 1,
+        "per_page": per_page
     }
 
 
