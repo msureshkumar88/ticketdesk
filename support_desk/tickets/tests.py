@@ -28,5 +28,5 @@ class TicketTestCase(TestCase):
 
     def test_access_ticket_not_found(self):
         """The invalid ticket id should return 404 status"""
-        response = self.client.get('http://127.0.0.1:8000/view/1')
+        response = self.client.get('http://127.0.0.1:8000/view/1dsd')
         self.assertEqual(response.status_code, 404)
